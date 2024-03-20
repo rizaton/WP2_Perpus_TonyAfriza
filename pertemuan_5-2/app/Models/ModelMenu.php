@@ -1,5 +1,4 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
 
 namespace App\Models;
 
@@ -7,9 +6,10 @@ use CodeIgniter\Model;
 
 class ModelMenu extends Model
 {
-    protected $table = 'menu';
-    protected $primaryKey = 'kdmenu';
+    protected $table            = 'menu';
+    protected $primaryKey       = 'kdmenu';
 
+    // Functions
     public function getMenu()
     {
         return $this->findAll();
@@ -27,7 +27,9 @@ class ModelMenu extends Model
 
     public function updateMenu($dataUpdate = null, $whereMenu = null)
     {
-        return $this->update($whereMenu, $dataUpdate);
+        return $this->whereIn('kdmenu', $whereMenu)
+            ->set($dataUpdate)
+            ->update();
     }
 
     public function hapusMenu($hapusData)
